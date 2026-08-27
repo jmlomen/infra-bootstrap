@@ -1,3 +1,11 @@
+
+# IAM OIDC resource for GitHub Actions
+resource "aws_iam_openid_connect_provider" "github" {
+  url = "https://token.actions.githubusercontent.com"
+  client_id_list = ["sts.amazonaws.com"]  
+}
+
+# Terraform-managed S3 bucket for remote state storage
 resource "aws_s3_bucket" "tfstate" {
   bucket = "tfstate-jmlomen-main"
 }
@@ -29,6 +37,7 @@ resource "aws_s3_bucket_public_access_block" "tfstate_block" {
   restrict_public_buckets = true
 }
 
+# Terraform backend configuration for S3 remote state
 terraform {
   backend "s3" {
     bucket         = "tfstate-jmlomen-main"
