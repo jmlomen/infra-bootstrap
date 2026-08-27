@@ -29,7 +29,10 @@ jobs:
 
       - name: Terraform Init
         working-directory: terraform
-        run: terraform init
+        run: |
+          terraform init
+          terraform import aws_iam_openid_connect_provider.github \
+            arn:aws:iam::715831355634:oidc-provider/token.actions.githubusercontent.com
         
       - name: Terraform Apply
         working-directory: terraform
