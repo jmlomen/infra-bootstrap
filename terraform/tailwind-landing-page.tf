@@ -59,6 +59,15 @@ resource "aws_iam_policy" "terraform_minimal" {
           "iam:ListAttachedRolePolicies"
         ]
         Resource = "*"
+      },
+
+      # --- Applications may require additional permissions, e.g. for S3, CloudFront, etc. ---
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:CreateBucket",          
+        ]
+        Resource = "*"
       }
     ]
   })
