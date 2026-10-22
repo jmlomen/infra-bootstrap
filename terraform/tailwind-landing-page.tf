@@ -34,20 +34,26 @@ resource "aws_iam_policy" "terraform_minimal" {
       # --- S3 Backend ---
       {
         Effect = "Allow"
-        Action = [
-          "s3:ListBucket"
-        ]
-        Resource = aws_s3_bucket.tfstate.arn
+        Action = "s3:*"
+        Resource = "*"
       },
-      {
-        Effect = "Allow"
-        Action = [
-          "s3:GetObject",
-          "s3:PutObject",
-          "s3:DeleteObject"
-        ]
-        Resource = "${aws_s3_bucket.tfstate.arn}/*"
-      },
+      
+      # {
+      #   Effect = "Allow"
+      #   Action = [
+      #     "s3:ListBucket"
+      #   ]
+      #   Resource = aws_s3_bucket.tfstate.arn
+      # },
+      # {
+      #   Effect = "Allow"
+      #   Action = [
+      #     "s3:GetObject",
+      #     "s3:PutObject",
+      #     "s3:DeleteObject"
+      #   ]
+      #   Resource = "${aws_s3_bucket.tfstate.arn}/*"
+      # },
 
       # --- Read-only IAM (safe + recommended) ---
       {
