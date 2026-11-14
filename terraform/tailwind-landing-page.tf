@@ -31,30 +31,6 @@ resource "aws_iam_policy" "terraform_minimal" {
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
-      # --- S3 Backend ---
-      {
-        Effect = "Allow"
-        Action = "s3:*"
-        Resource = "*"
-      },
-      
-      # {
-      #   Effect = "Allow"
-      #   Action = [
-      #     "s3:ListBucket"
-      #   ]
-      #   Resource = aws_s3_bucket.tfstate.arn
-      # },
-      # {
-      #   Effect = "Allow"
-      #   Action = [
-      #     "s3:GetObject",
-      #     "s3:PutObject",
-      #     "s3:DeleteObject"
-      #   ]
-      #   Resource = "${aws_s3_bucket.tfstate.arn}/*"
-      # },
-
       # --- Read-only IAM (safe + recommended) ---
       {
         Effect = "Allow"
@@ -68,10 +44,40 @@ resource "aws_iam_policy" "terraform_minimal" {
       },
 
       # --- Applications may require additional permissions, e.g. for S3, CloudFront, etc. ---
+      # --- S3 ---
+      {
+        Effect   = "Allow"
+        Action   = "s3:*"
+        Resource = "*"
+      },
+
+      # --- VPC ---
       {
         Effect = "Allow"
         Action = [
-          "s3:CreateBucket",          
+          "ec2:CreateVpc",
+          "ec2:DeleteVpc",
+          "ec2:ModifyVpcAttribute",
+          "ec2:DescribeVpcs",
+          "ec2:DescribeVpcAttribute",
+          "ec2:CreateSubnet",
+          "ec2:DeleteSubnet",
+          "ec2:DescribeSubnets",
+          "ec2:CreateInternetGateway",
+          "ec2:DeleteInternetGateway",
+          "ec2:AttachInternetGateway",
+          "ec2:DetachInternetGateway",
+          "ec2:DescribeInternetGateways",
+          "ec2:CreateRouteTable",
+          "ec2:DeleteRouteTable",
+          "ec2:AssociateRouteTable",
+          "ec2:DisassociateRouteTable",
+          "ec2:CreateRoute",
+          "ec2:DeleteRoute",
+          "ec2:DescribeRouteTables",
+          "ec2:DescribeAvailabilityZones",
+          "ec2:CreateTags",
+          "ec2:DeleteTags"
         ]
         Resource = "*"
       }
