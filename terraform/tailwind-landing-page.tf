@@ -62,6 +62,7 @@ resource "aws_iam_policy" "terraform_minimal" {
           "ec2:DescribeVpcAttribute",
           "ec2:CreateSubnet",
           "ec2:DeleteSubnet",
+          "ec2:ModifySubnetAttribute",
           "ec2:DescribeSubnets",
           "ec2:CreateInternetGateway",
           "ec2:DeleteInternetGateway",
