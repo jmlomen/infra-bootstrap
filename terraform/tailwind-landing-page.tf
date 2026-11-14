@@ -69,6 +69,7 @@ resource "aws_iam_policy" "terraform_minimal" {
           "ec2:AttachInternetGateway",
           "ec2:DetachInternetGateway",
           "ec2:DescribeInternetGateways",
+          "ec2:DescribeNetworkInterfaces",
           "ec2:CreateRouteTable",
           "ec2:DeleteRouteTable",
           "ec2:AssociateRouteTable",
