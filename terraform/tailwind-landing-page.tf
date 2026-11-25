@@ -42,6 +42,21 @@ resource "aws_iam_policy" "terraform_minimal" {
         ]
         Resource = "*"
       },
+      {
+        Effect = "Allow"
+        Action = [
+          "iam:CreateRole",
+          "iam:DeleteRole",
+          "iam:UpdateAssumeRolePolicy",
+          "iam:AttachRolePolicy",
+          "iam:DetachRolePolicy",
+          "iam:PassRole"
+        ]
+        Resource = [
+          "arn:aws:iam::715831355634:role/simple-next-execution",
+          "arn:aws:iam::715831355634:role/simple-next-task"
+        ]
+      },
 
       # --- Applications may require additional permissions, e.g. for S3, CloudFront, etc. ---
       # --- S3 ---
@@ -78,8 +93,67 @@ resource "aws_iam_policy" "terraform_minimal" {
           "ec2:DeleteRoute",
           "ec2:DescribeRouteTables",
           "ec2:DescribeAvailabilityZones",
+          "ec2:CreateSecurityGroup",
+          "ec2:DeleteSecurityGroup",
+          "ec2:DescribeSecurityGroups",
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ec2:AuthorizeSecurityGroupEgress",
+          "ec2:RevokeSecurityGroupIngress",
+          "ec2:RevokeSecurityGroupEgress",
           "ec2:CreateTags",
           "ec2:DeleteTags"
+        ]
+        Resource = "*"
+      },
+
+      # --- ECS cluster ---
+      {
+        Effect = "Allow"
+        Action = [
+          "ecs:CreateCluster",
+          "ecs:DescribeClusters",
+          "ecs:DeleteCluster",
+          "ecs:ListTagsForResource"
+        ]
+        Resource = "arn:aws:ecs:ap-southeast-2:715831355634:cluster/simple-next"
+      },
+
+      # --- CloudWatch log group ---
+      {
+        Effect = "Allow"
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:DeleteLogGroup",
+          "logs:DescribeLogGroups",
+          "logs:PutRetentionPolicy"
+        ]
+        Resource = "arn:aws:logs:ap-southeast-2:715831355634:log-group:/ecs/simple-next"
+      },
+
+      # --- Application load balancer ---
+      {
+        Effect = "Allow"
+        Action = [
+          "elasticloadbalancing:AddTags",
+          "elasticloadbalancing:CreateListener",
+          "elasticloadbalancing:CreateLoadBalancer",
+          "elasticloadbalancing:CreateTargetGroup",
+          "elasticloadbalancing:DeleteListener",
+          "elasticloadbalancing:DeleteLoadBalancer",
+          "elasticloadbalancing:DeleteTargetGroup",
+          "elasticloadbalancing:DescribeListeners",
+          "elasticloadbalancing:DescribeListenerAttributes",
+          "elasticloadbalancing:DescribeLoadBalancerAttributes",
+          "elasticloadbalancing:DescribeLoadBalancers",
+          "elasticloadbalancing:DescribeTags",
+          "elasticloadbalancing:DescribeTargetGroupAttributes",
+          "elasticloadbalancing:DescribeTargetGroups",
+          "elasticloadbalancing:ModifyListener",
+          "elasticloadbalancing:ModifyListenerAttributes",
+          "elasticloadbalancing:ModifyLoadBalancerAttributes",
+          "elasticloadbalancing:ModifyTargetGroup",
+          "elasticloadbalancing:ModifyTargetGroupAttributes",
+          "elasticloadbalancing:RemoveTags"
         ]
         Resource = "*"
       },
