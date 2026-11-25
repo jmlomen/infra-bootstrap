@@ -95,6 +95,7 @@ resource "aws_iam_policy" "terraform_minimal" {
         "Action" : [
           "ecr:CreateRepository",
           "ecr:DescribeRepositories",
+          "ecr:ListTagsForResource",
           "ecr:PutImageScanningConfiguration",
           "ecr:PutImageTagMutability",
           "ecr:GetLifecyclePolicy",
