@@ -133,12 +133,19 @@ resource "aws_iam_policy" "terraform_minimal" {
         Effect = "Allow"
         Action = [
           "ecs:RegisterTaskDefinition",
-          "ecs:DeregisterTaskDefinition",
-          "ecs:DescribeTaskDefinition",
           "ecs:ListTagsForResource"
         ]
         Resource = "arn:aws:ecs:ap-southeast-2:715831355634:task-definition/simple-next:*"
       },
+      {
+        Effect = "Allow"
+        Action = [
+          "ecs:DescribeTaskDefinition",
+          "ecs:DeregisterTaskDefinition"
+        ]
+        Resource = "*"
+      },
+
       {
         Effect = "Allow"
         Action = [
