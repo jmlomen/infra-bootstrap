@@ -103,6 +103,7 @@ resource "aws_iam_policy" "terraform_minimal" {
           "ecr:PutLifecyclePolicy",
           "ecr:DeleteLifecyclePolicy",
           "ecr:BatchCheckLayerAvailability",
+          "ecr:BatchGetImage",
           "ecr:InitiateLayerUpload",
           "ecr:UploadLayerPart",
           "ecr:CompleteLayerUpload",
