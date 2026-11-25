@@ -94,6 +94,7 @@ resource "aws_iam_policy" "terraform_minimal" {
         "Effect" : "Allow",
         "Action" : [
           "ecr:CreateRepository",
+          "ecr:DeleteRepository",
           "ecr:DescribeRepositories",
           "ecr:ListTagsForResource",
           "ecr:PutImageScanningConfiguration",
