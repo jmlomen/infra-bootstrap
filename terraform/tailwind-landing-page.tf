@@ -57,6 +57,16 @@ resource "aws_iam_policy" "terraform_minimal" {
           "arn:aws:iam::715831355634:role/simple-next-task"
         ]
       },
+      {
+        Effect   = "Allow"
+        Action   = "iam:CreateServiceLinkedRole"
+        Resource = "arn:aws:iam::715831355634:role/aws-service-role/elasticloadbalancing.amazonaws.com/AWSServiceRoleForElasticLoadBalancing"
+        Condition = {
+          StringEquals = {
+            "iam:AWSServiceName" = "elasticloadbalancing.amazonaws.com"
+          }
+        }
+      },
 
       # --- Applications may require additional permissions, e.g. for S3, CloudFront, etc. ---
       # --- S3 ---
@@ -124,10 +134,14 @@ resource "aws_iam_policy" "terraform_minimal" {
         Action = [
           "logs:CreateLogGroup",
           "logs:DeleteLogGroup",
-          "logs:DescribeLogGroups",
           "logs:PutRetentionPolicy"
         ]
         Resource = "arn:aws:logs:ap-southeast-2:715831355634:log-group:/ecs/simple-next"
+      },
+      {
+        Effect   = "Allow"
+        Action   = "logs:DescribeLogGroups"
+        Resource = "*"
       },
 
       # --- Application load balancer ---
