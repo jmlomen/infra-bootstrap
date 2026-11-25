@@ -103,6 +103,7 @@ resource "aws_iam_policy" "terraform_minimal" {
           "ec2:DeleteRoute",
           "ec2:DescribeRouteTables",
           "ec2:DescribeAvailabilityZones",
+          "ec2:DescribeAccountAttributes",
           "ec2:CreateSecurityGroup",
           "ec2:DeleteSecurityGroup",
           "ec2:DescribeSecurityGroups",
@@ -126,6 +127,27 @@ resource "aws_iam_policy" "terraform_minimal" {
           "ecs:ListTagsForResource"
         ]
         Resource = "arn:aws:ecs:ap-southeast-2:715831355634:cluster/simple-next"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "ecs:RegisterTaskDefinition",
+          "ecs:DeregisterTaskDefinition",
+          "ecs:DescribeTaskDefinition",
+          "ecs:ListTagsForResource"
+        ]
+        Resource = "arn:aws:ecs:ap-southeast-2:715831355634:task-definition/simple-next:*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "ecs:CreateService",
+          "ecs:UpdateService",
+          "ecs:DeleteService",
+          "ecs:DescribeServices",
+          "ecs:ListTagsForResource"
+        ]
+        Resource = "arn:aws:ecs:ap-southeast-2:715831355634:service/simple-next/simple-next"
       },
 
       # --- CloudWatch log group ---
