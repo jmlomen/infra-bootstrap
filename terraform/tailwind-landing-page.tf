@@ -82,6 +82,36 @@ resource "aws_iam_policy" "terraform_minimal" {
           "ec2:DeleteTags"
         ]
         Resource = "*"
+      },
+
+      # --- ECR (for containerized applications) ---
+      {
+        "Version" : "2012-10-17",
+        "Statement" : [
+          {
+            "Effect" : "Allow",
+            "Action" : "ecr:GetAuthorizationToken",
+            "Resource" : "*"
+          },
+          {
+            "Effect" : "Allow",
+            "Action" : [
+              "ecr:CreateRepository",
+              "ecr:DescribeRepositories",
+              "ecr:PutImageScanningConfiguration",
+              "ecr:PutImageTagMutability",
+              "ecr:GetLifecyclePolicy",
+              "ecr:PutLifecyclePolicy",
+              "ecr:DeleteLifecyclePolicy",
+              "ecr:BatchCheckLayerAvailability",
+              "ecr:InitiateLayerUpload",
+              "ecr:UploadLayerPart",
+              "ecr:CompleteLayerUpload",
+              "ecr:PutImage"
+            ],
+            "Resource" : "arn:aws:ecr:ap-southeast-2:715831355634:repository/simple-next"
+          }
+        ]
       }
     ]
   })
