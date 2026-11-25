@@ -134,6 +134,7 @@ resource "aws_iam_policy" "terraform_minimal" {
         Action = [
           "logs:CreateLogGroup",
           "logs:DeleteLogGroup",
+          "logs:ListTagsForResource",
           "logs:PutRetentionPolicy"
         ]
         Resource = "arn:aws:logs:ap-southeast-2:715831355634:log-group:/ecs/simple-next"
