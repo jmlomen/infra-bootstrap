@@ -1,8 +1,13 @@
 
 # IAM OIDC resource for GitHub Actions
 resource "aws_iam_openid_connect_provider" "github" {
-  url = "https://token.actions.githubusercontent.com"
-  client_id_list = ["sts.amazonaws.com"]  
+  url            = "https://token.actions.githubusercontent.com"
+  client_id_list = ["sts.amazonaws.com"]
+}
+
+# ECS uses this service-linked role to manage ECS services.
+resource "aws_iam_service_linked_role" "ecs" {
+  aws_service_name = "ecs.amazonaws.com"
 }
 
 # Terraform-managed S3 bucket for remote state storage
@@ -40,10 +45,10 @@ resource "aws_s3_bucket_public_access_block" "tfstate_block" {
 # Terraform backend configuration for S3 remote state
 terraform {
   backend "s3" {
-    bucket         = "tfstate-jmlomen-main"
-    key            = "global/terraform.tfstate"
-    region         = "ap-southeast-2"
-    encrypt        = true
+    bucket  = "tfstate-jmlomen-main"
+    key     = "global/terraform.tfstate"
+    region  = "ap-southeast-2"
+    encrypt = true
   }
 }
 
