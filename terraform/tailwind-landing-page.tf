@@ -67,6 +67,16 @@ resource "aws_iam_policy" "terraform_minimal" {
           }
         }
       },
+      {
+        Effect   = "Allow"
+        Action   = "iam:CreateServiceLinkedRole"
+        Resource = "arn:aws:iam::715831355634:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS"
+        Condition = {
+          StringEquals = {
+            "iam:AWSServiceName" = "ecs.amazonaws.com"
+          }
+        }
+      },
 
       # --- Applications may require additional permissions, e.g. for S3, CloudFront, etc. ---
       # --- S3 ---
